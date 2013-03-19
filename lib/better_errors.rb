@@ -119,7 +119,12 @@ begin
   require "binding_of_caller"
   BetterErrors.binding_of_caller_available = true
 rescue LoadError => e
-  BetterErrors.binding_of_caller_available = false
+  begin
+    require 'boc/binding_of_caller'
+    BetterErrors.binding_of_caller_available = true
+  rescue LoadError => e
+    BetterErrors.binding_of_caller_available = false
+  end
 end
 
 require "better_errors/core_ext/exception"
